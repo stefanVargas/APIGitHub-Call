@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  APIGitHubCall
+
+  Created by Stefan V. de Moraes on 08/10/19.
+  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
+ 
+ENGLISH
+ 
+*/
+
+
+
+/* Home: */
+
+"git.home.title" = "Home";
+"git.home.welcome.title" = "Welcome at GitHub API Test";
+"git.home.info.title" = "Click the Button to see GitHub's best Repos";
+"git.home.button.title" = "Click Me!";
+
+
+/* RepoTableView */
+
+"git.repo.refresh.text" = "Pull to refresh";

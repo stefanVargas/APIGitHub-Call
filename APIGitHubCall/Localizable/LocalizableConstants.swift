@@ -13,6 +13,8 @@ struct Project {
     
     static let url = "https://api.github.com/search/repositories?q=language:swift&sort=stars"
     
+    static let requestUrl = "https://api.github.com/search/repositories"
+    
     static let defaultImage = "Github"
     
     enum Fonts: String {
@@ -31,6 +33,7 @@ struct Project {
         }
         
         enum Repo: String {
+            case selfTitle = "git.repo.title"
             case refresh = "git.repo.refresh.text"
         }
     }

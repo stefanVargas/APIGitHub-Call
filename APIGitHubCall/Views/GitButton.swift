@@ -25,13 +25,7 @@ class GitButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        if aDecoder != nil {
-            setupButton()
-            
-        } else {
-            fatalError("init(coder:) has not been implemented")
-            
-        }
+        setupButton()
     }
     
     

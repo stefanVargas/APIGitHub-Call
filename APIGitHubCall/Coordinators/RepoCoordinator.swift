@@ -21,7 +21,7 @@ class RepoCoordinator: Coordinator {
     
     func start() {
         let repoViewController = ReposTableViewController(nibName: nil, bundle: nil)
-        repoViewController.title = "X" //Project.Localizable.
+        repoViewController.title = Project.Localizable.Repo.selfTitle.localized
         presenter.pushViewController(repoViewController, animated: true)
         
         self.repoViewController = repoViewController

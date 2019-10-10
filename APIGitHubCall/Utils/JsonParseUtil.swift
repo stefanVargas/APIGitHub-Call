@@ -11,15 +11,30 @@ import Foundation
 
 class JsonParseUtil {
     
-    class func fetchRepositoriesData(with request: Repositorie, page: Int, completion: @escaping () -> ()) {
+    class func fetchRepositoriesData(page: Int, completion: @escaping (Result<GitHubAPIService, Error>) -> ()) {
+                
+        guard let requestUrl = URL(string: Project.requestUrl) else { return }
+        
+        let urlRequest = URLRequest(url: requestUrl)
         
         guard let url = URL(string: Project.url) else { return }
         
-        let parameters = ["page"]
+        
+        
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             
             guard let data = data else { return }
             
-        }
+            guard let decodedData = try? JSONDecoder().decode(GitHubAPIService.self, from: data) else {
+                
+                guard let erro = err else { return }
+                completion(Result.failure(erro))
+                return
+            }
+                        
+            completion(Result.success(decodedData))
+        }.resume()
+        
     }
+    
 }

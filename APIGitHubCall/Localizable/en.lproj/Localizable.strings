@@ -21,4 +21,5 @@ ENGLISH
 
 /* RepoTableView */
 
+"git.repo.title" = "Repositories";
 "git.repo.refresh.text" = "Pull to refresh";

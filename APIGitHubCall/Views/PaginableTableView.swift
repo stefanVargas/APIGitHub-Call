@@ -47,7 +47,7 @@ class PaginableTableView: UITableView {
     
     //MARK: Other Atributes
     let idForCell =  GitRepoTableViewCell.identifier
-    private var sections = 0
+    var sections = 0
 
     weak open var paginatedDelegate: PaginatedTableViewDelegate?
 

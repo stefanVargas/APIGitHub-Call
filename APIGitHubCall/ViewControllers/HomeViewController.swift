@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  APIGitHubCall
 //
-//  Created by Stefan V. de Moraes on 08/10/19.
+//  Created by Stefan V. de Moraes on 09/10/19.
 //  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
 //
 
@@ -19,9 +19,7 @@ class HomeViewController: UIViewController {
 
     weak var homeDelegate: HomeViewControllerDelegate?
     
-    
     private let welcomeLabel: UILabel = {
-        
         var lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.gillSans.rawValue, size: 18)
         lbl.textColor = UIColor.gitDarkGray
@@ -32,15 +30,15 @@ class HomeViewController: UIViewController {
     }()
     
     private let infoLabel: UILabel = {
-        
         var lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.courier.rawValue, size: 13)
         lbl.textColor = UIColor.gitDarkGray
         lbl.text = Project.Localizable.Home.infoTitle.localized
         lbl.textAlignment = .center
+        lbl.numberOfLines = 0
+        lbl.lineBreakMode = .byWordWrapping
         
         return lbl
-        
     }()
     
     private let gitButton = GitButton(frame: CGRect.zero, interaction: true)
@@ -55,14 +53,13 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        gitButton.addTarget(self, action: #selector(goToRepoVC), for: .touchUpInside)
+        gitButton.addTarget(self, action: #selector(continueToNextViewController), for: .touchUpInside)
         
     }
     
     
     // MARK: HomeViewController Setup Methods
     func setupControllerViews()  {
-        
         let sizer = SizeHandler(view: self.view)
         let tenPercentH = sizer.percentOfFrame(percent: 10, dimension: .height)
         let quarterH = sizer.quarterFrame(dimension: .height)
@@ -82,11 +79,9 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: HomeViewController Auxiliar Methods
-    
-    @objc func goToRepoVC() {
-        
+    @objc func continueToNextViewController() {
         self.homeDelegate?.homeViewControllerDidSelect(tag: gitButton.tag)
+        
     }
-
 
 }

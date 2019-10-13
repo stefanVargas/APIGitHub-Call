@@ -2,7 +2,7 @@
 //  Extentions.swift
 //  APIGitHubCall
 //
-//  Created by Stefan V. de Moraes on 08/10/19.
+//  Created by Stefan V. de Moraes on 10/10/19.
 //  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
 //
 
@@ -13,22 +13,14 @@ import UIKit
 //MARK: UIView
 extension UIView {
     
-    //Just Round Corners
-    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        self.layer.mask = mask
-    }
-    
-    //UIView as a Circle
-    func setAsCircle() {
+    func setWithroundCorners() {
         self.layer.masksToBounds = true
-        self.layer.cornerRadius = self.frame.width/2
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 8
     }
     
     
-     //UIView Contraints Code
+    ///UIView Contraints Code
     func setupContraint(pattern: String, views: UIView...) {
         var myViews: [String : UIView] = [:]
         
@@ -50,7 +42,41 @@ extension UIView {
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: pattern, options: options, metrics: nil, views: myViews))
     }
+    
+}
 
+
+//MARK: UIImageView
+extension UIImageView {
+    
+    var imageCache: NSCache<AnyObject, AnyObject> {
+        
+        return  NSCache<AnyObject, AnyObject>()
+    }
+    
+    func imageFromURL(_ imageString: String) {
+        
+        guard let imageURL = URL(string: imageString) else { return }
+        if let cachedImage = imageCache.object(forKey: imageURL.absoluteString as AnyObject) as? UIImage {
+            self.image = cachedImage
+            return
+        }
+        
+        URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                if let data = data, let image = UIImage(data: data) {
+                    self.imageCache.setObject(image, forKey: imageURL.absoluteString as AnyObject)
+                    self.image = image
+                }
+            })
+        }.resume()
+    }
+    
 }
 
 
@@ -69,7 +95,7 @@ extension UIColor {
     
     static var gitGreen: UIColor { return UIColor.fromHex(hexValue: 0x2EBC4F) }
     
-
+    
     static func fromHex(hexValue: UInt32) -> UIColor {
         
         let r = CGFloat((hexValue & 0xFF0000) >> 16) / 255.0
@@ -88,7 +114,7 @@ extension UINavigationBar {
     
     func appUINavigationBarLayout() {
         let navBarFont =  UIFont(name: Project.Fonts.gillSans.rawValue, size: 22)
-
+        
         let attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.gitBlack,
             NSAttributedString.Key.font: navBarFont,
@@ -101,12 +127,13 @@ extension UINavigationBar {
     
 }
 
+
 //MARK: RawRepresentable
 extension RawRepresentable where RawValue == String {
     
     
     var localized: String {
-        return NSLocalizedString(rawValue, comment: "")
+        return NSLocalizedString(rawValue, comment: String())
     }
     
 }

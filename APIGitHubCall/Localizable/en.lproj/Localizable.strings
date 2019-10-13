@@ -15,11 +15,13 @@ ENGLISH
 
 "git.home.title" = "Home";
 "git.home.welcome.title" = "Welcome at GitHub API Test";
-"git.home.info.title" = "Click the Button to see GitHub's best Repos";
-"git.home.button.title" = "Click Me!";
+"git.home.info.title" = "Click the Button to see GitHub's best Swift Repositories";
+"git.home.button.title" = "Continue!";
 
 
 /* RepoTableView */
 
 "git.repo.title" = "Repositories";
+"git.repo.stars.text" = "🌟: ";
+"git.repo.author.text" = "author: ";
 "git.repo.refresh.text" = "Pull to refresh";

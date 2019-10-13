@@ -2,7 +2,7 @@
 //  HomeCoordinator.swift
 //  APIGitHubCall
 //
-//  Created by Stefan V. de Moraes on 08/10/19.
+//  Created by Stefan V. de Moraes on 09/10/19.
 //  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
 //
 
@@ -13,8 +13,8 @@ class HomeCoordinator: Coordinator {
     
     private let presenter: UINavigationController
     
+    private var repoCoordinator: RepoCoordinator?
     var homeViewController: HomeViewController?
-    var repoCoordinator: RepoCoordinator?
     
     init(presenter: UINavigationController) {
         
@@ -30,9 +30,13 @@ class HomeCoordinator: Coordinator {
         self.homeViewController?.homeDelegate = self
         presenter.pushViewController(self.homeViewController ?? homeViewController, animated: true)
     }
+    
+    func stop() {
+        presenter.dismiss(animated: true, completion: nil)
+    }
 }
-// MARK: END HomeCoordinator to extensions
 
+// MARK: END HomeCoordinator to extensions
 extension HomeCoordinator: HomeViewControllerDelegate {
     func homeViewControllerDidSelect(tag: Int) {
         

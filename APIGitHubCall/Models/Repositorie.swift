@@ -2,11 +2,12 @@
 //  Repositorie.swift
 //  APIGitHubCall
 //
-//  Created by Stefan V. de Moraes on 09/10/19.
+//  Created by Stefan V. de Moraes on 11/10/19.
 //  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
 //
 
 import Foundation
+import UIKit
 
 struct Repositories {
         
@@ -14,16 +15,27 @@ struct Repositories {
 
     struct Repositorie: Codable  {
      
-        
-        var id: Int?
         var name: String?
         var owner: Owner?
-        var stargazers_count: Int?
+        var starCount: Int?
+        
+        private enum CodingKeys: String, CodingKey {
+                   case starCount = "stargazers_count"
+                   case owner
+                   case name
+               }
+
         
         struct Owner: Codable  {
             var id: Int?
             var login: String?
-            var avatar_url: String?
+            var avatarUrl: String?
+            
+            private enum CodingKeys: String, CodingKey {
+                case avatarUrl = "avatar_url"
+                case login
+                case id
+            }
         }
     }
     
@@ -42,7 +54,7 @@ extension Repositories {
             var repositorie = Repositorie()
 
             repositorie.name = gitRepo.name
-            repositorie.id = gitRepo.id
+            repositorie.starCount = gitRepo.starCount
             repositorie.owner = gitRepo.owner
 
             self.repositories.append(repositorie)

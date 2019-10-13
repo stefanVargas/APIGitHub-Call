@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  APIGitHubCall
 //
-//  Created by Stefan V. de Moraes on 08/10/19.
+//  Created by Stefan V. de Moraes on 09/10/19.
 //  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
 //
 
@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        if #available(iOS 12.0, *) {
+        if #available(iOS 9.0, *) {
             
             let window = UIWindow(frame: UIScreen.main.bounds)
             let applicationCoordinator = ApplicationCoordinator(window: window)

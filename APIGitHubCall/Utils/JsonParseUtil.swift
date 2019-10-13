@@ -2,7 +2,7 @@
 //  JsonParseUtil.swift
 //  APIGitHubCall
 //
-//  Created by Stefan V. de Moraes on 09/10/19.
+//  Created by Stefan V. de Moraes on 11/10/19.
 //  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
 //
 
@@ -13,11 +13,9 @@ class JsonParseUtil {
     
     class func fetchRepositoriesData(page: Int, completion: @escaping (Result<GitHubAPIService, Error>) -> ()) {
                 
-        guard let requestUrl = URL(string: Project.requestUrl) else { return }
-        
-        let urlRequest = URLRequest(url: requestUrl)
-        
-        guard let url = URL(string: Project.url) else { return }
+        let pageUrl =  Project.url + page.description
+
+        guard let url = URL(string: pageUrl) else { return }
         
         
         

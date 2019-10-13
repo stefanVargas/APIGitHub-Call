@@ -11,11 +11,9 @@ import Foundation
 
 struct Project {
     
-    static let url = "https://api.github.com/search/repositories?q=language:swift&sort=stars"
-    
-    static let requestUrl = "https://api.github.com/search/repositories"
-    
-    static let defaultImage = "Github"
+    static let url = "https://api.github.com/search/repositories?q=language:swift&sort=stars&page="
+        
+    static let defaultImage = "Github.png"
     
     enum Fonts: String {
         case courierBold = "Courier-Bold"
@@ -34,6 +32,8 @@ struct Project {
         
         enum Repo: String {
             case selfTitle = "git.repo.title"
+            case stars = "git.repo.stars.text"
+            case author = "git.repo.author.text"
             case refresh = "git.repo.refresh.text"
         }
     }

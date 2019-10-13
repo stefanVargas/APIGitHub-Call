@@ -2,7 +2,7 @@
 //  ReposTableViewController.swift
 //  APIGitHubCall
 //
-//  Created by Stefan V. de Moraes on 08/10/19.
+//  Created by Stefan V. de Moraes on 10/10/19.
 //  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
 //
 
@@ -13,124 +13,131 @@ class ReposTableViewController: UIViewController {
     //MARK: Atributes
     typealias VF = VisualFormat
     
-    var loadMoreViewHeight: CGFloat = 100
-    var heightForHeaderInSection: CGFloat = 0
-
-
-    private var repoTableView = PaginableTableView()
+    private var repoTableView: PaginableTableView?
+    var currentPage = 0
     var repoList: Repositories?
-
+    
     
     // MARK: ReposTableViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    JsonParseUtil.fetchRepositoriesData(page: 0) { result in
-            
-        if let service = try? result.get() {
-            self.repoList = Repositories(from: service)
-        }
-        else {
-            
-            self.view.backgroundColor = .red
-            return
-        }
-            
-        }
-        
         self.setupView()
-        self.setupTableView(table: self.repoTableView)
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+       self.setupTableView()
+
+    }
+    
     
     // MARK: ReposTableViewController Setup Methods
     func setupView() {
         self.view.backgroundColor = .white
+        
+    }
+    
+    func setupTableView(){
+        repoTableView = PaginableTableView()
+        repoTableView?.paginableDataSource = self
+        repoTableView?.paginableDelegate = self
+        repoTableView?.allowsSelection = false
+        repoTableView?.alwaysBounceVertical = true
+        repoTableView?.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
+        repoTableView?.backgroundColor = .clear
+        repoTableView?.separatorStyle = .singleLine
+        repoTableView?.tintColor = .gitGray
+        repoTableView?.enablePullToRefresh = true
+        repoTableView?.loadData(refresh: true)
+        repoTableView?.tableFooterView = UIView()
+        self.currentPage = repoTableView?.currentPage ?? 0
+        
+        self.view.addSubview(repoTableView ?? UITableView())
+        self.view.setupContraint(pattern: VF.fullVerDefault, views: repoTableView ?? UITableView())
+        self.view.setupContraint(pattern: VF.fullHorTotal, views: repoTableView ?? UITableView())
+        
+    }
 
-        
-    }
-    
-    func setupTableView(table:UITableView){
-        
-        table.dataSource = self
-        table.delegate = self
-        table.allowsSelection = false
-        table.alwaysBounceVertical = true
-        table.autoresizingMask = UIView.AutoresizingMask.flexibleHeight
-        table.backgroundColor = .clear
-        table.separatorStyle = .singleLine
-        table.tintColor = .gitWhite
-        
-        self.view.addSubview(table)
-        self.view.setupContraint(pattern: VF.fullVerTotal, views: table)
-        self.view.setupContraint(pattern: VF.fullHorTotal, views: table)
-        
-    }
-    
-    
-    // MARK: ReposTableViewController Auxiliar Methods
-    
-    private func calculateIndexPathsToReload(from newRepos: Repositories) -> [IndexPath] {
-        let startIndex = (repoList?.repositories.count ?? 1) - newRepos.repositories.count
-        let endIndex = startIndex + newRepos.repositories.count
-      return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
-    }
 }
 
-// MARK: END ReposTableViewController to extensions
-
-extension ReposTableViewController: UITableViewDelegate, UITableViewDataSource {
+ // MARK: END ReposTableViewController to extensions
+extension ReposTableViewController: PaginableTableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //TODO
         return self.repoList?.repositories.count ?? 0
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //TODO
         let index = indexPath.row
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: GitRepoTableViewCell.identifier, for: indexPath) as? GitRepoTableViewCell {
             
-            cell.photo = UIImageView(image: UIImage(named: Project.defaultImage))
+            if let imageUrl = self.repoList?.repositories[index].owner?.avatarUrl {
+                cell.photo.imageFromURL(imageUrl)
+            }
+            
+            if let authorText = self.repoList?.repositories[index].owner?.login {
+                cell.authorNameLabel.text =  Project.Localizable.Repo.author.localized + authorText
+            }
+            
             cell.repoNameLabel.text = self.repoList?.repositories[index].name
-            cell.authorNameLabel.text = self.repoList?.repositories[index].owner?.login
-            cell.starsLabel.text = self.repoList?.repositories[index].stargazers_count?.description
+
+            if let starText = self.repoList?.repositories[index].starCount?.description {
+                cell.starsLabel.text =  Project.Localizable.Repo.stars.localized + starText
+            }
             
             return cell
         }
         
         return UITableViewCell()
-        
     }
-    
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == repoTableView.sections - 1 {
-            let isRefreshing = repoTableView.refreshControl?.isRefreshing ?? false
-            if !isRefreshing && repoTableView.isLoading {
-                return loadMoreViewHeight
-            }
-            return 0.0
-        }
-        return repoTableView.estimatedRowHeight
-    }
-    
     
 }
 
-extension ReposTableViewController: PaginatedTableViewDelegate {
+extension ReposTableViewController: PaginableTableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let sizer = SizeHandler()
+        let heightForRow = sizer.frameDivided(In: 6.25, dimension: .height)
+        
+        return heightForRow
+    }
     
     func loadMore(_ pageNumber: Int, _ pageSize: Int, onSuccess: ((Bool) -> Void)?, onError: ((Error) -> Void)?) {
-      
-        if pageNumber == 1 { self.repoList?.repositories = [] }
+        var hasMore = false
+        var data: Repositories?
         
-        // TODO: Data to List
-//        let startFrom = (self.list.last ?? 0) + 1
-//        for repositorie in startFrom..<(startFrom + pageSize) {
-//            self.list.append(number)
-//        }
+        JsonParseUtil.fetchRepositoriesData(page: pageNumber) { result in
+            
+            if let service = try? result.get() {
+                if pageNumber == 1 {
+                    self.repoList = Repositories(from: service)
+                } else {
+                    data = Repositories(from: service)
+                    
+                    for item in 0..<(pageSize) {
+                        
+                        guard let newRepository = data?.repositories[item] else { return }
+                        self.repoList?.repositories.append(newRepository)
+                    }
+                    
+                }
+                hasMore = true
+            }
+            else {
+                hasMore = false
+                return
+            }
+            
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            onSuccess?(true)
+            onSuccess?(hasMore)
+            
         }
     }
 }

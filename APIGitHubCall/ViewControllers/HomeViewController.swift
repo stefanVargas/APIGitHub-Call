@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
 
     weak var homeDelegate: HomeViewControllerDelegate?
     
-    private let welcomeLabel: UILabel = {
+    let welcomeLabel: UILabel = {
         var lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.gillSans.rawValue, size: 18)
         lbl.textColor = UIColor.gitDarkGray
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
         return lbl
     }()
     
-    private let infoLabel: UILabel = {
+    let infoLabel: UILabel = {
         var lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.courier.rawValue, size: 13)
         lbl.textColor = UIColor.gitDarkGray
@@ -41,7 +41,10 @@ class HomeViewController: UIViewController {
         return lbl
     }()
     
-    private let gitButton = GitButton(frame: CGRect.zero, interaction: true)
+    let gitButton = GitButton(frame: CGRect.zero, interaction: true)
+    
+    let impactFeedbackgenerator = UIImpactFeedbackGenerator(style: .light)
+
     
 
     // MARK: HomeViewController LifeCycle
@@ -71,7 +74,7 @@ class HomeViewController: UIViewController {
         self.view.addSubview(gitButton)
         
         self.view.setupContraint(pattern: VF.fullHorDefault, options: NSLayoutConstraint.FormatOptions.alignAllCenterY, views: welcomeLabel)
-        self.view.setupContraint(pattern: VF.fullHorDefault, options: NSLayoutConstraint.FormatOptions.alignAllCenterY, views: infoLabel)
+        self.view.setupContraint(pattern: VF.fullHorSmall, options: NSLayoutConstraint.FormatOptions.alignAllCenterY, views: infoLabel)
          self.view.setupContraint(pattern: VF.fullHorSmall, options: NSLayoutConstraint.FormatOptions.alignAllCenterY, views: gitButton)
         
         self.view.setupContraint(pattern: "V:|-(==\(quarterH))-[v0]-16-[v1]-(==\(tenPercentH))-[v2(==\(quarterH/4))]", views: welcomeLabel, infoLabel, gitButton)
@@ -81,6 +84,7 @@ class HomeViewController: UIViewController {
     // MARK: HomeViewController Auxiliar Methods
     @objc func continueToNextViewController() {
         self.homeDelegate?.homeViewControllerDidSelect(tag: gitButton.tag)
+        impactFeedbackgenerator.impactOccurred()
         
     }
 

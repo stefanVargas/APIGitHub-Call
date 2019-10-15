@@ -13,7 +13,8 @@ class ReposTableViewController: UIViewController {
     //MARK: Atributes
     typealias VF = VisualFormat
     
-    private var repoTableView: PaginableTableView?
+    var repoTableView: PaginableTableView?
+    
     var currentPage = 0
     var repoList: Repositories?
     
@@ -30,7 +31,7 @@ class ReposTableViewController: UIViewController {
        self.setupTableView()
 
     }
-    
+
     
     // MARK: ReposTableViewController Setup Methods
     func setupView() {
@@ -61,6 +62,7 @@ class ReposTableViewController: UIViewController {
 
 }
 
+
  // MARK: END ReposTableViewController to extensions
 extension ReposTableViewController: PaginableTableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -76,21 +78,31 @@ extension ReposTableViewController: PaginableTableViewDataSource {
         let index = indexPath.row
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: GitRepoTableViewCell.identifier, for: indexPath) as? GitRepoTableViewCell {
+            cell.tag = indexPath.row
+            
+            cell.photo.image = nil
             
             if let imageUrl = self.repoList?.repositories[index].owner?.avatarUrl {
                 cell.photo.imageFromURL(imageUrl)
+                cell.photo.setRoundedCorners()
             }
+            
+            let nameText =  self.repoList?.repositories[index].name
+            cell.repoNameLabel.text = nameText
             
             if let authorText = self.repoList?.repositories[index].owner?.login {
                 cell.authorNameLabel.text =  Project.Localizable.Repo.author.localized + authorText
+                
+                cell.accessibilityLabel = Project.Localizable.Accessiblity.repository.localized + (nameText ?? String()) +  Project.Localizable.Repo.author.localized + authorText
             }
             
-            cell.repoNameLabel.text = self.repoList?.repositories[index].name
-
             if let starText = self.repoList?.repositories[index].starCount?.description {
                 cell.starsLabel.text =  Project.Localizable.Repo.stars.localized + starText
+                
+                cell.accessibilityValue = Project.Localizable.Accessiblity.stars.localized + starText
             }
             
+        
             return cell
         }
         
@@ -116,6 +128,7 @@ extension ReposTableViewController: PaginableTableViewDelegate {
             if let service = try? result.get() {
                 if pageNumber == 1 {
                     self.repoList = Repositories(from: service)
+                    
                 } else {
                     data = Repositories(from: service)
                     

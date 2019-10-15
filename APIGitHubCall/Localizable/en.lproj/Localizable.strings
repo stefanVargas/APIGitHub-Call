@@ -9,6 +9,11 @@ ENGLISH
  
 */
 
+/* Accessibility: */
+
+"git.loading.label" = "Loading repositories List";
+"git.stars.label" = "Stars Amount: ";
+"git.repo.name.label" = "Repository name: ";
 
 
 /* Home: */

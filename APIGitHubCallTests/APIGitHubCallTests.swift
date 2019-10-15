@@ -37,10 +37,12 @@ class APIGitHubCallTests: XCTestCase {
         let delegate = homeVC?.homeDelegate
         homeVC?.setupControllerViews()
         let gBtn = GitButton(frame: CGRect.zero, interaction: true)
+        let ifg = homeVC?.impactFeedbackgenerator
         gBtn.setupButton()
         delegate?.homeViewControllerDidSelect(tag: 1)
 
         XCTAssertNotNil(delegate, "Delegate is Not Nil")
+        XCTAssertNotNil(ifg, "Impact FeedBack is Not Nil")
         XCTAssertEqual(gBtn.backgroundColor, .gitBlack, "Button Background must be black")
         XCTAssertEqual(gBtn.tag, 46, "Button Tag must be 46")
         XCTAssertEqual(homeVC?.view.backgroundColor, .white, "Background must be white")
@@ -102,7 +104,9 @@ class APIGitHubCallTests: XCTestCase {
         let photo = gCell.photo
         let stars = gCell.starsLabel.text
         
+        XCTAssertEqual(rCell.accessibilityLabel, Project.Localizable.Accessiblity.loading.localized, "Refreshing has Accessiblity Label")
         XCTAssertEqual(l.color, .gitGray, "Loader color must be gray")
+        XCTAssertNotNil(GitRepoTableViewCell.holderImage, "Holder Image must Not be Nil")
         XCTAssertNil(stars, "Label text must start as Nil")
         XCTAssertNotNil(photo.image, "Image must Not be Nil")
 

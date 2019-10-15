@@ -40,10 +40,10 @@ class RefreshingTableViewCell: UITableViewCell {
     
     private func setupViews() {
         addSubview(loaderSign)
-
+        
         setupContraint(pattern: VF.fullHorSmall,options: NSLayoutConstraint.FormatOptions.alignAllCenterY, views: loaderSign)
         setupContraint(pattern: VF.fullVerSmall,options: NSLayoutConstraint.FormatOptions.alignAllCenterX, views: loaderSign)
-
+        self.accessibilityLabel = Project.Localizable.Accessiblity.loading.localized
     }
-
+    
 }

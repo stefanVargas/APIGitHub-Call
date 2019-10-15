@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ApplicationCoordinator: Coordinator {
-    let window: UIWindow
+    private let window: UIWindow
     private let rootViewController: UINavigationController
     private var homeCoordinator: HomeCoordinator
 

@@ -13,10 +13,10 @@ import UIKit
 //MARK: UIView
 extension UIView {
     
-    func setWithroundCorners() {
+    func setRoundedCorners() {
         self.layer.masksToBounds = true
         self.clipsToBounds = true
-        self.layer.cornerRadius = 8
+        self.layer.cornerRadius = self.frame.height/16
     }
     
     

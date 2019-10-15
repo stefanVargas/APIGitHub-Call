@@ -9,6 +9,11 @@ PORTUGUÊS - BR
  
 */
 
+/* Accessibility: */
+
+"git.loading.label" = "Carregando a Lista de Repositórios";
+"git.stars.label" = "Número de Estrelas: ";
+"git.repo.name.label" = "nome do Repositório: ";
 
 
 /* Home: */

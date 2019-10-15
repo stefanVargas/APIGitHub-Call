@@ -21,7 +21,16 @@ struct Project {
         case gillSans = "GillSans"
     }
     
+    
+    
     enum Localizable {
+        
+        enum Accessiblity: String {
+            
+            case loading = "git.loading.label"
+            case stars = "git.stars.label"
+            case repository = "git.repo.name.label"
+        }
         
         enum Home: String {
             case selfTitle = "git.home.title"

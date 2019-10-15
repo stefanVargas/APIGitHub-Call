@@ -23,6 +23,8 @@ class GitRepoTableViewCell: UITableViewCell {
         return cv
     }()
     
+    static let holderImage = UIImage(named: Project.defaultImage)
+    
     var repoNameLabel: UILabel! = {
         let lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.courierBold.rawValue, size: 13)
@@ -58,10 +60,10 @@ class GitRepoTableViewCell: UITableViewCell {
     
     var photo: UIImageView = {
         
-        let img = UIImage(named: Project.defaultImage)
-        let imgView = UIImageView(image: img)
+        let imgView = UIImageView(image: holderImage)
         imgView.contentMode = UIView.ContentMode.scaleAspectFit
-        imgView.setWithroundCorners()
+        imgView.setRoundedCorners()
+        imgView.isAccessibilityElement = false
         
         return imgView
     }()
@@ -107,5 +109,5 @@ class GitRepoTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
-
+    
 }

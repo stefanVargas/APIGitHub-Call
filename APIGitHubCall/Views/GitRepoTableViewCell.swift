@@ -28,7 +28,7 @@ class GitRepoTableViewCell: UITableViewCell {
     var repoNameLabel: UILabel! = {
         let lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.courierBold.rawValue, size: 13)
-        lbl.textColor = UIColor.gitBlack
+        lbl.textColor = UIColor.gitGreen
         lbl.textAlignment = .center
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byCharWrapping
@@ -40,7 +40,7 @@ class GitRepoTableViewCell: UITableViewCell {
     var authorNameLabel: UILabel! = {
         let lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.courier.rawValue, size: 10)
-        lbl.textColor = UIColor.gitDarkGray
+        lbl.textColor = UIColor.gitDarkModeTextColor
         lbl.textAlignment = .center
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byCharWrapping
@@ -87,7 +87,7 @@ class GitRepoTableViewCell: UITableViewCell {
         let sixPercentHeight = sizer.percentOfFrame(percent: 6, dimension: .height)
         let widthQuarter = sizer.quarterFrame(dimension: .width)
         let widthPart = sizer.percentOfFrame(percent: 30.25, dimension: .width)
-        self.backgroundColor = .white
+        self.backgroundColor = .gitDarkFillColor
         
         addSubview(starsLabel)
         addSubview(photo)

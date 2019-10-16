@@ -39,13 +39,13 @@ class APIGitHubCallTests: XCTestCase {
         let gBtn = GitButton(frame: CGRect.zero, interaction: true)
         let ifg = homeVC?.impactFeedbackgenerator
         gBtn.setupButton()
-        delegate?.homeViewControllerDidSelect(tag: 1)
+        delegate?.homeViewControllerDidSelect(senderTag: 1)
 
         XCTAssertNotNil(delegate, "Delegate is Not Nil")
         XCTAssertNotNil(ifg, "Impact FeedBack is Not Nil")
         XCTAssertEqual(gBtn.backgroundColor, .gitBlack, "Button Background must be black")
         XCTAssertEqual(gBtn.tag, 46, "Button Tag must be 46")
-        XCTAssertEqual(homeVC?.view.backgroundColor, .white, "Background must be white")
+        XCTAssertEqual(homeVC?.view.backgroundColor, UIColor.gitDarkModeBackground, "Background must be white")
 
     }
 
@@ -60,10 +60,12 @@ class APIGitHubCallTests: XCTestCase {
         let tablePage = table.firstPage
         table.loadData()
         
-        XCTAssertNil(self.repos, "Delegate is Nil")
-        XCTAssertEqual(repoTableVC?.view.backgroundColor, .white, "Background must be white")
+        XCTAssertNil(self.repos, "Object to fulfill the TableView is Nil")
+        XCTAssertEqual(repoTableVC?.view.backgroundColor, UIColor.gitDarkModeBackground, "Background must be white")
         XCTAssertEqual(page, tablePage, "Starting pages must be equal - 1")
         XCTAssertNotNil(table, "TableView is Not Nil")
+        XCTAssertNotNil(table.delegate, "TableView delegate is Not Nil")
+
 
     }
     
@@ -105,6 +107,8 @@ class APIGitHubCallTests: XCTestCase {
         let stars = gCell.starsLabel.text
         
         XCTAssertEqual(rCell.accessibilityLabel, Project.Localizable.Accessiblity.loading.localized, "Refreshing has Accessiblity Label")
+        XCTAssertNotNil(rCell.photoPlaceHolder, "Refreshing placeholder Image must Not be Nil")
+
         XCTAssertEqual(l.color, .gitGray, "Loader color must be gray")
         XCTAssertNotNil(GitRepoTableViewCell.holderImage, "Holder Image must Not be Nil")
         XCTAssertNil(stars, "Label text must start as Nil")

@@ -19,9 +19,9 @@ PORTUGUÊS - BR
 /* Home: */
 
 "git.home.title" = "Início";
-"git.home.welcome.title" = " Bem-Vindo ao teste da API do GitHub";
+"git.home.welcome.title" = "Bem-Vindo ao teste da API do GitHub";
 "git.home.info.title" = "Pressione o Botão e veja os melhores Repositórios de Swift no GitHub";
-"git.home.button.title" = "Continue!";
+"git.home.button.title" = "Continue";
 
 
 /* RepoTableView */

@@ -35,7 +35,7 @@ class ReposTableViewController: UIViewController {
     
     // MARK: ReposTableViewController Setup Methods
     func setupView() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .gitDarkModeBackground
         
     }
     
@@ -65,9 +65,11 @@ class ReposTableViewController: UIViewController {
 
  // MARK: END ReposTableViewController to extensions
 extension ReposTableViewController: PaginableTableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.repoList?.repositories.count ?? 0
@@ -80,7 +82,9 @@ extension ReposTableViewController: PaginableTableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: GitRepoTableViewCell.identifier, for: indexPath) as? GitRepoTableViewCell {
             cell.tag = indexPath.row
             
-            cell.photo.image = nil
+            cell.photo.image = UIImage(named: Project.defaultImage)
+            cell.photo.setRoundedCorners()
+
             
             if let imageUrl = self.repoList?.repositories[index].owner?.avatarUrl {
                 cell.photo.imageFromURL(imageUrl)

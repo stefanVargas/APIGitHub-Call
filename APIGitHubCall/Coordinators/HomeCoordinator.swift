@@ -13,7 +13,7 @@ class HomeCoordinator: Coordinator {
     
     private let presenter: UINavigationController
     
-    private var repoCoordinator: RepoCoordinator?
+    var repoCoordinator: RepoCoordinator?
     var homeViewController: HomeViewController?
     
     init(presenter: UINavigationController) {
@@ -38,9 +38,9 @@ class HomeCoordinator: Coordinator {
 
 // MARK: END HomeCoordinator to extensions
 extension HomeCoordinator: HomeViewControllerDelegate {
-    func homeViewControllerDidSelect(tag: Int) {
+    func homeViewControllerDidSelect(senderTag: Int) {
         
-        if tag == 46 {
+        if senderTag == 46 {
             
             let repoCoord = RepoCoordinator(presenter: presenter)
             self.repoCoordinator = repoCoord

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HomeViewControllerDelegate: class {
-    func homeViewControllerDidSelect(tag: Int)
+    func homeViewControllerDidSelect(senderTag: Int)
 }
 
 class HomeViewController: UIViewController {
@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     let welcomeLabel: UILabel = {
         var lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.gillSans.rawValue, size: 18)
-        lbl.textColor = UIColor.gitDarkGray
+        lbl.textColor = UIColor.gitDarkModeTextColor
         lbl.text = Project.Localizable.Home.welcomeTitle.localized
         lbl.textAlignment = .center
         
@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
     let infoLabel: UILabel = {
         var lbl = UILabel()
         lbl.font = UIFont(name: Project.Fonts.courier.rawValue, size: 13)
-        lbl.textColor = UIColor.gitDarkGray
+        lbl.textColor = UIColor.gitDarkModeTextColor
         lbl.text = Project.Localizable.Home.infoTitle.localized
         lbl.textAlignment = .center
         lbl.numberOfLines = 0
@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
         let tenPercentH = sizer.percentOfFrame(percent: 10, dimension: .height)
         let quarterH = sizer.quarterFrame(dimension: .height)
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .gitDarkModeBackground
 
         self.view.addSubview(welcomeLabel)
         self.view.addSubview(infoLabel)
@@ -83,7 +83,7 @@ class HomeViewController: UIViewController {
     
     // MARK: HomeViewController Auxiliar Methods
     @objc func continueToNextViewController() {
-        self.homeDelegate?.homeViewControllerDidSelect(tag: gitButton.tag)
+        self.homeDelegate?.homeViewControllerDidSelect(senderTag: gitButton.tag)
         impactFeedbackgenerator.impactOccurred()
         
     }

@@ -19,6 +19,23 @@ extension UIView {
         self.layer.cornerRadius = self.frame.height/16
     }
     
+    func setGlow(radius: CGFloat, opacity: Float, color: [UIColor]) {
+        self.layer.shadowOffset = .zero
+        self.layer.shadowRadius = radius
+        self.layer.shadowOpacity = 0.6
+        var index = 0
+        let duration = TimeInterval(color.count - 1)
+        UIView.animate(withDuration: duration){
+            self.layer.shadowOpacity += opacity
+            index += 1
+            self.layer.shadowColor = color[color.count - 1 - index].cgColor
+            self.backgroundColor = color[index]
+
+        }
+        let path = UIBezierPath(rect: self.bounds).cgPath
+        self.layer.shadowPath = path
+    }
+    
     
     ///UIView Contraints Code
     func setupContraint(pattern: String, views: UIView...) {
@@ -95,6 +112,45 @@ extension UIColor {
     
     static var gitGreen: UIColor { return UIColor.fromHex(hexValue: 0x2EBC4F) }
     
+    static var gitDarkModeTextColor: UIColor {
+        
+        var textColor: UIColor?
+        if #available(iOS 13.0, *) {
+            textColor = UIColor.secondaryLabel
+        } else {
+            textColor = .gitDarkGray
+        }
+        
+        return textColor ?? .gitDarkGray
+        
+    }
+    
+    static var gitDarkFillColor: UIColor {
+        
+        var fillColor: UIColor?
+        if #available(iOS 13.0, *) {
+            fillColor = UIColor.secondarySystemFill
+        } else {
+            fillColor = .gitWhite
+        }
+        
+        return fillColor ?? .gitWhite
+        
+    }
+    
+    static var gitDarkModeBackground: UIColor {
+        
+        var backgroundColor: UIColor?
+        if #available(iOS 13.0, *) {
+            backgroundColor = UIColor.secondarySystemBackground
+        } else {
+            backgroundColor = .white
+        }
+        
+        return backgroundColor ?? .white
+        
+    }
+
     
     static func fromHex(hexValue: UInt32) -> UIColor {
         
@@ -115,8 +171,9 @@ extension UINavigationBar {
     func appUINavigationBarLayout() {
         let navBarFont =  UIFont(name: Project.Fonts.gillSans.rawValue, size: 22)
         
+        
         let attrs = [
-            NSAttributedString.Key.foregroundColor: UIColor.gitBlack,
+            NSAttributedString.Key.foregroundColor: UIColor.gitDarkModeTextColor,
             NSAttributedString.Key.font: navBarFont,
             NSAttributedString.Key.underlineColor: UIColor.gitGreen,
             NSAttributedString.Key.backgroundColor: UIColor.clear,

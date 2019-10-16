@@ -37,9 +37,9 @@ class CoordinatorSpec: QuickSpec {
                 
                 it("should call delegate") {
                     sut1?.start()
-                    sut1?.homeViewControllerDidSelect(tag: gitButtonTag)
+                    sut1?.homeViewControllerDidSelect(senderTag: gitButtonTag)
                     
-                    expect(sut2?.repoViewController).toNot(beNil())
+                    expect(sut1?.repoCoordinator?.repoViewController).toNot(beNil())
 
                 }
 

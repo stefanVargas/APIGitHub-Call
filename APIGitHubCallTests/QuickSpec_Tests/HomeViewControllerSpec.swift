@@ -37,6 +37,7 @@ class HomeViewControllerSpec: QuickSpec {
                 
                 it("should have stable Layout ") {
                     sut?.setupControllerViews()
+                    sut?.overrideUserInterfaceStyle = .light
                     
                     expect(view) == snapshot("home_view")
                     

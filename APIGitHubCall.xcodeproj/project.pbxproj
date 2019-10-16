@@ -74,6 +74,10 @@
 		71685DCB234E67F000E5EC05 /* PaginableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginableTableView.swift; sourceTree = "<group>"; };
 		71698F2A23553ABA00885FA5 /* ReposTableViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		71698F2C2355560400885FA5 /* CoordinatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorSpec.swift; sourceTree = "<group>"; };
+		71698F2E2356497900885FA5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		71698F2F2356497900885FA5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		71698F30235650C700885FA5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		71698F31235650C700885FA5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		716CD621E714CCD89D0357DE /* Pods_APIGitHubCall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APIGitHubCall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D30464235291C700BE88A1 /* RefreshingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshingTableViewCell.swift; sourceTree = "<group>"; };
 		71D304662352A1DF00BE88A1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -314,6 +318,8 @@
 				en,
 				Base,
 				"pt-BR",
+				es,
+				de,
 			);
 			mainGroup = 71685D63234D1F6B00E5EC05;
 			productRefGroup = 71685D6D234D1F6B00E5EC05 /* Products */;
@@ -464,6 +470,8 @@
 			children = (
 				71685D7B234D1F6F00E5EC05 /* Base */,
 				71D304662352A1DF00BE88A1 /* pt-BR */,
+				71698F2E2356497900885FA5 /* es */,
+				71698F30235650C700885FA5 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -473,6 +481,8 @@
 			children = (
 				71685DBA234D2E4F00E5EC05 /* en */,
 				71D304672352A1DF00BE88A1 /* pt-BR */,
+				71698F2F2356497900885FA5 /* es */,
+				71698F31235650C700885FA5 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

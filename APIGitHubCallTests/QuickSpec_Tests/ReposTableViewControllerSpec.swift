@@ -36,16 +36,19 @@ class ReposTableViewControllerSpec: QuickSpec {
                 
                 it("should have stable Layout ") {
                     sut?.setupView()
+                    sut?.overrideUserInterfaceStyle = .light
                     
-                    expect(view) == snapshot("repositories_view")
+                    expect(view) == snapshot("repositories_view_iPhone8")
                 }
                 
                 it("should have stable TableView ") {
                     sut?.setupView()
                     sut?.setupTableView()
                     let table = sut?.repoTableView
+                    sut?.overrideUserInterfaceStyle = .light
+
                     
-                    expect(table) == snapshot("repositories_tableview")
+                    expect(table) == snapshot("repositories_tableview_iPhone8")
                 }
                 
             }
@@ -62,14 +65,12 @@ class ReposTableViewControllerSpec: QuickSpec {
                             return
                         }
                     }
-                    
                 }
                 
                 it("should have a Repositories List ") {
                                         
                     expect(sut?.repoList).toEventually(beNil())
                 }
-                
                 
             }
             

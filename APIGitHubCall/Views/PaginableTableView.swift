@@ -31,6 +31,8 @@ class PaginableTableView: UITableView {
     private(set) var currentPage = 1
     private(set) var isLoading = false
     public var firstPage = 1
+    public var placeholderRowsNumber = 7
+
     
     //MARK: Refresh control Atributes
     lazy var refreshControltableView: UIRefreshControl = {
@@ -56,7 +58,7 @@ class PaginableTableView: UITableView {
     
     //MARK: Other Atributes
     var sections = 0
-    var loadMoreViewHeight: CGFloat = 100
+    var loadMoreViewHeight: CGFloat = 125
     var heightForHeaderInSection: CGFloat = 0
     public var headerTitle = String()
 
@@ -145,13 +147,13 @@ extension PaginableTableView: UITableViewDataSourcePrefetching {
 
 extension PaginableTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-               if section == sections - 1 {
-
-                   return 1
-               } else {
-                   return paginableDataSource?.tableView(tableView, numberOfRowsInSection: section) ?? 0
-               }
+        if section == sections - 1 {
+            let moreRows = hasMoreData && enablePullToRefresh
+            return moreRows ?  placeholderRowsNumber : 1
+            
+        } else {
+            return paginableDataSource?.tableView(tableView, numberOfRowsInSection: section) ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -160,6 +162,7 @@ extension PaginableTableView: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RefreshingTableViewCell.identifier, for: indexPath) as? RefreshingTableViewCell else { return UITableViewCell() }
             cell.loaderSign.hidesWhenStopped = true
             if self.isLoading {
+                cell.glowColor()
                 cell.loaderSign.startAnimating()
             } else {
                 cell.loaderSign.stopAnimating()

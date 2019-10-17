@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  APIGitHubCall
+
+  Created by Stefan V. de Moraes on 08/10/19.
+  Copyright © 2019 Stefan V. de Moraes. All rights reserved.
+ 
+PORTUGUÊS - BR
+ 
+*/
+
+/* Accessibility: */
+
+"git.loading.label" = "Carregando a Lista de Repositórios";
+"git.stars.label" = "Número de Estrelas: ";
+"git.repo.name.label" = "nome do Repositório: ";
+
+
+/* Home: */
+
+"git.home.title" = "Início";
+"git.home.welcome.title" = "Bem-Vindo ao teste da API do GitHub";
+"git.home.info.title" = "Pressione o Botão e veja os melhores Repositórios de Swift no GitHub";
+"git.home.button.title" = "Continue";
+
+
+/* RepoTableView */
+
+"git.repo.title" = "Repositórios";
+"git.repo.stars.text" = "🌟: ";
+"git.repo.author.text" = "autor: ";
+"git.repo.refresh.text" = "Puxe para atualizar";

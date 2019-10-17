@@ -21,8 +21,7 @@ class RefreshingTableViewCell: UITableViewCell {
     
     let loaderSign : UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView()
-        loader.color = .gitGray
-        
+        loader.color = .gitMagenta
         return loader
     }()
     
@@ -65,7 +64,6 @@ class RefreshingTableViewCell: UITableViewCell {
         photoPlaceHolder.backgroundColor = .white
         let opacity: Float = 0.15
         self.photoPlaceHolder.setGlow(radius: 5, opacity: opacity, color: [.gitWhite, .gitGray, .gitMagenta, .gitBlack])
-        
         
     }
     
